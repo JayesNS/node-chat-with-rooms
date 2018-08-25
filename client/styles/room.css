@@ -1,0 +1,72 @@
+body {
+  justify-content: center;
+  align-items: center;
+}
+
+#back-button {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#back-button i {
+  margin: 16px;
+  color: #fcfcfc;
+  font-size: 36px;
+  border-radius: 50%;
+  background: #1cd808;
+  padding: 8px;
+  box-shadow: 0 0 5px 0 #1cd808;
+  transition: .25s ease-in;
+}
+#back-button:hover i {
+  filter: brightness(.7);
+  transition: .25s ease-out;
+}
+
+.panel {
+  height: 80%;
+  width: 40%;
+}
+
+#room-info {
+  padding: 8px;
+  border-bottom: 1px solid lightgray;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#messages {
+  flex-grow: 1;
+  list-style: none;
+}
+
+#messages li span {
+  font-weight: 400;
+}
+#messages li {
+  padding: 4px 8px;
+  font-weight: 300;
+  font-size: .8em
+}
+
+#user-input {
+  border-top: 1px solid lightgray;
+  justify-self: flex-end;
+  justify-content: space-between;
+  padding: 8px 4px;
+}
+#new-message {
+  flex-grow: 1;
+  margin-right: 4px;
+  padding: 4px 8px;
+}
+#send-new-message {
+  cursor: pointer;
+  color: #1cd808;
+  transition: .5s ease-in;
+}
+#send-new-message:hover {
+  filter: brightness(.7);
+  transition: .5s ease-out;
+}

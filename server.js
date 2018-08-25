@@ -7,6 +7,13 @@ const port = 3000
 
 app.use(express.static('client'))
 
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/client/index.html');
+})
+app.get('/room', (req, res) => {
+  res.sendFile(__dirname + '/client/room.html');
+})
+
 http.listen(port, () => {
   console.log(`Running server at ${port}`)
 })

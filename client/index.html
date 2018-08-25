@@ -1,18 +1,58 @@
-
-
 <script src="scripts/socket.io.js"></script>
 <script>
-  const socket = io('http://localhost:3000')
+    const socket = io('http://localhost:3000')
 
-  socket.on('connect', () => {
-    console.log('Connected to server')
+    socket.on('connect', () => {
+        console.log('Connected to server')
 
-    socket.on('connection info', (data) => {
-      console.log(data)
+        socket.on('connection info', (data) => {
+            console.log(data)
+        })
     })
-  })
 
-  socket.on('disconnect', () => {
-    console.log('Disconnected from server')
-  })
+    socket.on('disconnect', () => {
+        console.log('Disconnected from server')
+    })
 </script>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Socket.io chat</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400&amp;subset=latin-ext" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/rooms.css">
+</head>
+
+<body>
+    <div id="left-side">
+        <section id="room-panel" class="panel">
+            <ul>
+              <li class="room">
+                <div class="room-name">Room #1</div>
+                <div class="room-users badge">2</div>
+              </li>
+
+              <li class="room">
+                <div class="room-name">Room #2</div>
+                <div class="room-users badge">2</div>
+              </li>
+            </ul>
+            <div id="new-room">
+              <input type="text" id="new-room-name" placeholder="Create new room">
+              <div role="button" id="new-room-add">
+                <i class="material-icons">add</i>
+              </div>
+            </div>
+        </section>
+    </div>
+    <div id="right-side">
+        <input type="text" id="nickname" autocomplete="off" placeholder="nickname" required class="shadow">
+    </div>
+</body>
+
+</html>

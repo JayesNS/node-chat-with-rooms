@@ -1,0 +1,47 @@
+<script src="scripts/socket.io.js"></script>
+<script>
+    const socket = io('http://localhost:3000')
+</script>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Socket.io chat</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400&amp;subset=latin-ext" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/room.css">
+</head>
+
+<body>
+    <div id="back-button">
+      <a href="/">
+        <i class="material-icons">arrow_back</i>
+      </a>
+    </div>
+    <section class="panel">
+      <div id="room-info">
+        <div id="room-name">
+          Room #1
+        </div>
+        <div id="room-users" class="badge">2</div>
+      </div>
+      <ul id="messages">
+        <li>Connected to chat</li>
+        <li>
+          <span>Guest #1: </span>Hello World
+        </li>
+      </ul>
+      <div id="user-input">
+        <input id="new-message" placeholder="Message...">
+        <div role="button" id="send-new-message">
+          <i class="material-icons">send</i>
+        </div>
+      </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+}
+
+div, section {
+  display: flex;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  background-image: url('/images/space-pirate-pattern.jpg');
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+}
+
+input {
+  background: #f3f8f7;
+  color: black;
+  border: none;
+  margin: 0;
+}
+
+.panel {
+  box-shadow: 0 0 2px 1px #06ab9d;
+  border-radius: 2px;
+  flex-direction: column;
+  background: #f3f8f7;
+}
+
+.badge {
+  background: #1CD808;
+  color: white;
+  border-radius: 4px;
+  align-content: center;
+  font-size: .9em;
+  letter-spacing: 1px;
+  padding: 4px;
+}
