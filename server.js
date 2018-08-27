@@ -19,11 +19,54 @@ http.listen(port, () => {
 })
 sio.listen(http)
 
-sio.on('connection', (socket) => {
-  var data = socket.handshake.query
-  socket.join(data.room)
+let rooms = []
+sio.sockets.on('connection', (socket) => {
+  socket.on('join room', (data) => {
+    socket.join(data.room)
+
+    if (rooms[data.room]) {
+      if (!rooms[data.room]['users'].includes(data.nickname)) {
+        rooms[data.room]['users'].push(data.nickname)
+      }
+    } else {
+      rooms[data.room] = {
+        users: [data.nickname]
+      }
+    }
+
+    console.log(rooms)
+
+    socket.room = data.room
+    socket.nickname = data.nickname
+
+    socket.to(socket.room).emit('user joined', {
+      nickname: socket.nickname
+    })
+  })
+
+  socket.on('message', (data) => {
+    socket.to(socket.room).emit('new message', {
+      message: data.message,
+      author: socket.nickname
+    })
+  })
+
+  socket.on('room list', () => {
+    emitRoomList(socket)
+  })
+  socket.on('connected to server', () => {
+    emitRoomList(sio)
+  })
 
   socket.on('disconnect', () => {
-
+    socket.to(socket.room).emit('user left', {
+      nickname: socket.nickname
+    })
   })
 })
+
+function emitRoomList(socket) {
+  socket.emit('room list', {
+    rooms
+  })
+}

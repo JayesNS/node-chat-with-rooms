@@ -1,9 +1,5 @@
 const params = getParams()
-const socket = io('http://localhost:3000', {
-    query: {
-        room: params.room,
-    }
-})
+const socket = io('http://localhost:3000')
 
 const roomNameElem = document.querySelector('#room-name')
 roomNameElem.textContent = params.room
@@ -18,18 +14,40 @@ messageInput.addEventListener('keypress', (event) => {
   }
 })
 
+socket.emit('join room', {
+  room: params.room,
+  nickname: params.username
+})
+
 socket.on('connect', () => {
   appendMessage(`Connected to chat as ${params.username}`)
 
-})
+  setRoomUsers(1)
+  socket.on('user joined', (data) => {
+    setRoomUsers(getRoomUsers() + 1)
+    appendMessage(`User ${data.nickname} joined`)
+  })
+  socket.on('user left', (data) => {
+    appendMessage(`User ${data.nickname} left`)
+  })
 
-socket.on('disconnect', () => {
+  socket.on('new message', (data) => {
+    appendMessage(data.message, data.author)
+  })
+
+  socket.emit('connected to server')
+
+  socket.on('disconnect', () => {
     appendMessage('Disconnected from chat')
+  })
 })
 
 // Functions
 function setRoomUsers(users) {
   roomUsersElem.textContent = users
+}
+function getRoomUsers() {
+  return parseInt(roomUsersElem.textContent)
 }
 
 function appendMessage(message, author) {
@@ -60,16 +78,15 @@ function sendMessage() {
   }
 
   if (messageInput.value) {
-      sendMessageToServer(data.message, data.author).then((data) => {
-        appendMessage(data.message, data.author)
-        messageInput.value = ''
-      })
+    sendMessageToServer(data.message, data.author)
+    appendMessage(data.message, data.author)
+    messageInput.value = ''
   }
 }
 
 function sendMessageToServer(message, author) {
-  return new Promise((resolve, reject) => {
-    resolve({message, author})
+  socket.emit('message', {
+    message
   })
 }
 
