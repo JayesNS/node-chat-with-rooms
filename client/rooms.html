@@ -1,20 +1,3 @@
-<script src="scripts/socket.io.js"></script>
-<script>
-    const socket = io('http://localhost:3000')
-
-    socket.on('connect', () => {
-        console.log('Connected to server')
-
-        socket.on('connection info', (data) => {
-            console.log(data)
-        })
-    })
-
-    socket.on('disconnect', () => {
-        console.log('Disconnected from server')
-    })
-</script>
-
 <!DOCTYPE html>
 <html>
 
@@ -24,8 +7,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400&amp;subset=latin-ext" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/rooms.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/rooms.css">
 </head>
 
 <body>
@@ -53,6 +36,9 @@
     <div id="right-side">
         <input type="text" id="nickname" autocomplete="off" placeholder="nickname" required class="shadow">
     </div>
+
+    <script src="/scripts/socket.io.js"></script>
+    <script src="/scripts/rooms.js"></script>
 </body>
 
 </html>

@@ -39,6 +39,7 @@ body {
 #messages {
   flex-grow: 1;
   list-style: none;
+  overflow-y: auto;
 }
 
 #messages li span {
