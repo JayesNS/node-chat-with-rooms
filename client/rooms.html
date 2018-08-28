@@ -2,33 +2,29 @@
 <html>
 
 <head>
-    <title>Socket.io chat</title>
+  <title>Socket.io chat</title>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400&amp;subset=latin-ext" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400&amp;subset=latin-ext" rel="stylesheet">
 
-    <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="/styles/rooms.css">
+  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="/styles/rooms.css">
 </head>
 
 <body>
-    <div id="left-side">
-        <section id="room-panel" class="panel">
-            <ul></ul>
-            <div id="new-room">
-              <input type="text" id="new-room-name" placeholder="Create new room">
-              <div role="button" id="new-room-add">
-                <i class="material-icons">add</i>
-              </div>
-            </div>
-        </section>
+  <section id="room-panel" class="panel">
+    <ul></ul>
+    <div id="new-room">
+      <input type="text" id="nickname" placeholder="nickname" required>
+      <input type="text" id="new-room-name" placeholder="Create new room">
+      <div role="button" id="new-room-add">
+        <i class="material-icons">add</i>
+      </div>
     </div>
-    <div id="right-side">
-        <input type="text" id="nickname" autocomplete="off" placeholder="nickname" required class="shadow">
-    </div>
+  </section>
 
-    <script src="/scripts/socket.io.js"></script>
-    <script src="/scripts/rooms.js"></script>
+  <script src="/scripts/socket.io.js"></script>
+  <script src="/scripts/rooms.js"></script>
 </body>
 
 </html>

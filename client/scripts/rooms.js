@@ -11,32 +11,39 @@ newRoomNameInput.addEventListener('keypress', (event) => {
   }
 })
 
+let rooms = []
+
 socket.on('connect', () => {
-  socket.emit('room list')
-  socket.on('room list', (data) => {
-    console.log(data)
-  })
+
+})
+socket.on('connection info', (data) => {
+  roomsElem.textContent = ''
+  for(roomName in data.rooms) {
+    rooms = data.rooms
+    let room = data.rooms[roomName]
+    appendRoom(roomName, room.users.length)
+  }
 })
 
 function createRoom() {
   const newRoomNameInput = document.querySelector('#new-room-name')
   const room = newRoomNameInput.value
 
-  createRoomOnServer(room).then(() => {
-    appendRoom(room)
-    newRoomNameInput.value = ''
-  })
+  if (Object.keys(rooms).includes(room)) {
+    alert('Room already exists')
+    return
+  }
+
+  if (!usernameElem.value) {
+    alert('Insert nickname')
+  } else if (!room) {
+    alert('Insert room name')
+  } else {
+    location.href = `/${room}/${usernameElem.value}`
+  }
 }
 
-function createRoomOnServer(room) {
-  return new Promise((resolve, reject) => {
-    resolve()
-  })
-}
-
-function appendRoom(room) {
-  let users = 0
-
+function appendRoom(room, users=0) {
   const roomElem = document.createElement('li')
   roomElem.className = 'room'
 
@@ -51,10 +58,10 @@ function appendRoom(room) {
   roomElem.appendChild(roomUsersElem)
 
   roomElem.addEventListener('click', () => {
-    console.log(usernameElem.value)
     if (usernameElem.value) {
-      const url = `/${room}/${usernameElem.value}`
-      location.href = url
+      location.href = `/${room}/${usernameElem.value}`
+    } else {
+      alert('Insert nickname')
     }
   })
   roomsElem.append(roomElem)

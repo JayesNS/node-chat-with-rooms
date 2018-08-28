@@ -20,25 +20,30 @@ socket.emit('join room', {
 })
 
 socket.on('connect', () => {
+  socket.on('disconnect', () => {
+    appendMessage('Disconnected from chat')
+    location.href = '/'
+  })
+
   appendMessage(`Connected to chat as ${params.username}`)
 
-  setRoomUsers(1)
+  socket.on('connection info', (data) => {
+    if (data.room) {
+      setRoomUsers(data.room.users.length)
+    }
+  })
+
   socket.on('user joined', (data) => {
-    setRoomUsers(getRoomUsers() + 1)
     appendMessage(`User ${data.nickname} joined`)
+    setRoomUsers(data.room.users.length)
   })
   socket.on('user left', (data) => {
     appendMessage(`User ${data.nickname} left`)
+    setRoomUsers(data.room.users.length)
   })
 
   socket.on('new message', (data) => {
     appendMessage(data.message, data.author)
-  })
-
-  socket.emit('connected to server')
-
-  socket.on('disconnect', () => {
-    appendMessage('Disconnected from chat')
   })
 })
 

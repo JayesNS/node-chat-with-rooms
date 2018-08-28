@@ -3,20 +3,11 @@ body {
   flex-wrap: wrap;
   font-size: 15px;
   font-family: Arial;
-}
-.shadow {
-  box-shadow: 0 0 2px 1px #06ab9d;
-  border-radius: 2px;
-}
-#left-side {
-  flex-basis: 80%;
-  flex-grow: 1;
-  flex-shrink: 1;
   justify-content: center;
   align-items: center;
 }
 #room-panel {
-	width: 70%;
+	width: 50%;
   min-height: 30%;
   max-height: 70%;
   justify-content: space-between;
@@ -53,8 +44,11 @@ ul {
   border-top: 1px solid lightgray;
 }
 #new-room-name {
-  flex-grow: 1;
+  flex-grow: 5;
   width: 0;
+  padding: 8px;
+  margin: 2px 4px;
+  border-bottom: 1px solid lightgray;
 }
 #new-room-add {
   cursor: pointer;
@@ -66,28 +60,18 @@ ul {
   transition: .5s ease-out;
 }
 
-#right-side {
-  flex-basis: 20%;
-  flex-grow: 1;
-  flex-shrink: 1;
-  justify-content: center;
-  align-items: flex-end;
-}
 #nickname:invalid {
   color: red;
-  background: tomato;
-  box-shadow: 0 0 5px 2px tomato;
+  border: 1px solid tomato;
   transition: .5s ease-out;
 }
 #nickname {
-  background: #1cd808;
-  color: white;
-  width: 80%;
-  font-size: 1.3em;
-  
-  margin: 16px 8px;
+  width: 0;
+  flex-grow: 1;
   padding: 8px;
-  border-radius: 4px;
+  margin: 2px 4px;
+  border: 1px solid lightgray;
+  box-shadow: none;
   text-align: center;
   transition: .5s ease-in;
 }

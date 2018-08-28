@@ -19,14 +19,20 @@ http.listen(port, () => {
 })
 sio.listen(http)
 
-let rooms = []
+var rooms = {}
 sio.sockets.on('connection', (socket) => {
+  socket.emit('connection info', {rooms})
+
   socket.on('join room', (data) => {
+    if (rooms[data.room] && rooms[data.room].users.includes(data.nickname)) {
+      socket.disconnect()
+    }
+
     socket.join(data.room)
 
     if (rooms[data.room]) {
-      if (!rooms[data.room]['users'].includes(data.nickname)) {
-        rooms[data.room]['users'].push(data.nickname)
+      if (!rooms[data.room].users.includes(data.nickname)) {
+        rooms[data.room].users.push(data.nickname)
       }
     } else {
       rooms[data.room] = {
@@ -34,14 +40,18 @@ sio.sockets.on('connection', (socket) => {
       }
     }
 
-    console.log(rooms)
-
     socket.room = data.room
     socket.nickname = data.nickname
 
     socket.to(socket.room).emit('user joined', {
-      nickname: socket.nickname
+      nickname: socket.nickname,
+      room: rooms[socket.room]
     })
+
+    socket.emit('connection info', {
+      room: rooms[socket.room]
+    })
+    socket.broadcast.emit('connection info', {rooms})
   })
 
   socket.on('message', (data) => {
@@ -51,22 +61,21 @@ sio.sockets.on('connection', (socket) => {
     })
   })
 
-  socket.on('room list', () => {
-    emitRoomList(socket)
-  })
-  socket.on('connected to server', () => {
-    emitRoomList(sio)
-  })
-
   socket.on('disconnect', () => {
+    if (socket.room) {
+      // Delete user from room list
+      rooms[socket.room].users
+        .splice(rooms[socket.room].users.indexOf(socket.nickname), 1)
+      // Delete room if empty
+      if (rooms[socket.room].users.length === 0) {
+        delete rooms[socket.room]
+      }
+    }
+
+    socket.broadcast.emit('connection info', {rooms})
     socket.to(socket.room).emit('user left', {
-      nickname: socket.nickname
+      nickname: socket.nickname,
+      room: rooms[socket.room]
     })
   })
 })
-
-function emitRoomList(socket) {
-  socket.emit('room list', {
-    rooms
-  })
-}
