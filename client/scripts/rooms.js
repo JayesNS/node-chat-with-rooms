@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000')
+const socket = io(location.origin)
 const roomsElem = document.querySelector('#room-panel ul')
 const usernameElem = document.querySelector('#nickname')
 

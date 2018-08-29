@@ -1,5 +1,5 @@
 const params = getParams()
-const socket = io('http://localhost:3000')
+const socket = io(location.origin)
 
 const roomNameElem = document.querySelector('#room-name')
 roomNameElem.textContent = params.room
